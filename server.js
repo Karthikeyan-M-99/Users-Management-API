@@ -8,7 +8,7 @@ const authMiddleware = require('./auth/authMiddleware');
 const router = express.Router();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -96,6 +96,7 @@ router.post('/register', (req, res) => {
 
 app.use('/api', router);
 
-app.listen(8080, () => {
-  console.log('API running at http://localhost:8080/api');
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`API running at port ${PORT}`);
 });
